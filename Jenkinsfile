@@ -3,12 +3,13 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
+        GITHUB_CREDENTIALS = credentials('github-credentials-id')
     }
 
     stages {
         stage('Clone repository') {
             steps {
-                git branch: 'main', url: 'https://your-repository-url.git'
+                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/<username>/<repository>.git'
             }
         }
         stage('Build Docker Image') {
