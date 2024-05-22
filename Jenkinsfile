@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/<username>/<repository>.git'
+                git branch: 'master', credentialsId: 'github-credentials-id', url: 'https://github.com/<username>/<repository>.git'
             }
         }
         stage('Build Docker Image') {
