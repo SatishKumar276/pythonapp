@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        dockerhub-credentials-id = credentials('dockerhub-credentials-id')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
         GITHUB_CREDENTIALS = credentials('github-credentials-id')
     }
 
@@ -22,7 +22,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'DOCKERHUB_CREDENTIALS') {
                         dockerImage.push()
                     }
                 }
