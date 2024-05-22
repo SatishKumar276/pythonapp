@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Deploy Docker Container') {
             steps {
-                sshagent(['ec2-ssh-key']) {
+                sshagent(credentials: ['SSH_cred']) {
                     sh '''
                     docker pull satishchaitu/pythonimage:${BUILD_ID}
                     docker stop my_app || true
