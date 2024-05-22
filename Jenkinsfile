@@ -10,11 +10,12 @@ pipeline {
         stage('Clone repository') {
             steps {
                 git branch: 'master', credentialsId: 'github-credentials-id', url: 'https://github.com/SatishKumar276/pythonapp.git'
+            }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("your-dockerhub-username/your-image-name:${env.BUILD_ID}")
+                    dockerImage = docker.build("satishchaitu/pythonimage:${env.BUILD_ID}")
                 }
             }
         }
@@ -31,10 +32,10 @@ pipeline {
             steps {
                 sshagent(['ec2-ssh-key']) {
                     sh '''
-                    docker pull your-dockerhub-username/your-image-name:${BUILD_ID}
+                    docker pull satishchaitu/pythonimage:${BUILD_ID}
                     docker stop my_app || true
                     docker rm my_app || true
-                    docker run -d --name my_app -p 80:80 your-dockerhub-username/your-image-name:${BUILD_ID}
+                    docker run -d --name my_app -p 80:80 satishchaitu/pythonimage:${BUILD_ID}
                     '''
                 }
             }
